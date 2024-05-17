@@ -9,8 +9,20 @@
 #include <string.h>
 #include <stdbool.h>
 
+// Extracts a string between two quotations marks.
+// Returns NULL if no string is found.
+const char* extractStringToken(const char* token) {
 
+    char line[MAX_BUFFER_SIZE]; // Copy of the input
+    char* subString;            // The result with the quotes
 
+    strcpy(line, token);
+
+    subString = strtok(line, "\"");     // Find the first double quote
+    subString = strtok(NULL, "\"");     // Find the second double quote
+
+    return subString;
+}
 
 int readString(FILE* fptr) {
     char fileInput[MAX_BUFFER_SIZE];
@@ -41,19 +53,12 @@ int readString(FILE* fptr) {
                     token[strcspn(token, "\n")] = '\0';
                     fprintf(stderr, "DEBUG: %s\n", token);
                     
-                    // Check if token contains a stirng (move to func)
-                    char line[MAX_BUFFER_SIZE]; // Copy of the input
-                    char* subString;            // The result with the quotes
-
-                    strcpy(line, token);
-                    
-                    subString = strtok(line, "\"");     // Find the first double quote
-                    subString = strtok(NULL, "\"");     // Find the second double quote
-                    
+                    // Check if token contains a stirng 
+                    char *subString = extractStringToken(token);
                     if (subString) {
                         fprintf(stderr, "TOKEN: %s\n", subString);
                     }
-                    // (end move to func)
+                    
                     
                     token = strtok_s(NULL, delimiter, &next_token);
 
@@ -66,6 +71,8 @@ int readString(FILE* fptr) {
 
     return 0;
 }
+
+
 
 int validLine(char* line) {
     if (line[0] == '#') {
