@@ -9,22 +9,35 @@
 #include <string.h>
 #include <stdbool.h>
 
+typedef struct {
+    char* key;
+    char* value;
+} token_data_t;
+
+
+
 // Extracts a string between two quotations marks.
 // Returns NULL if no string is found.
 const char* extractStringToken(const char* token) {
 
     char line[MAX_BUFFER_SIZE]; // Copy of the input
-    char* subString;            // The result with the quotes
+    char* stringValue;            // The result with the quotes
 
     strcpy(line, token);
 
-    subString = strtok(line, "\"");     // Find the first double quote
-    subString = strtok(NULL, "\"");     // Find the second double quote
+    stringValue = strtok(line, "\"");     // Find the first double quote
+    stringValue = strtok(NULL, "\"");     // Find the second double quote
 
-    return subString;
+    return stringValue;
 }
 
-int readString(FILE* fptr) {
+// Returns a string matched to a given key.
+// Returns NULL if no string is found.
+const char* readString(FILE* fptr, const char* key) {
+
+}
+
+int readAll(FILE* fptr) {
     char fileInput[MAX_BUFFER_SIZE];
       
     while (fgets(fileInput, MAX_BUFFER_SIZE, fptr)) {
@@ -46,22 +59,35 @@ int readString(FILE* fptr) {
 
             // Split the string into tokens 
             token = strtok_s(currentLine, delimiter, &next_token);
+            int i = 0;
             
+            token_data_t data;
+
             while (token != NULL) {
                 // Get the next token
                 if (token != NULL) {
                     token[strcspn(token, "\n")] = '\0';
                     fprintf(stderr, "DEBUG: %s\n", token);
                     
+                    
+                    if (i == 0) {
+                        data.key = token;
+                        fprintf(stderr, "KEY  : %s\n", data.key);
+                    }
+
                     // Check if token contains a stirng 
                     char *subString = extractStringToken(token);
-                    if (subString) {
-                        fprintf(stderr, "TOKEN: %s\n", subString);
+                    if (i == 1 && subString) {
+                        data.value = subString;
+                        fprintf(stderr, "VALUE: %s\n", data.value);
+                        // fprintf(stderr, "VALUE: %s\n", subString);
                     }
                     
                     
                     token = strtok_s(NULL, delimiter, &next_token);
 
+                    // fprintf(stderr, "INDEX: %d\n", i);
+                    i++;
                 }
             }
             fprintf(stderr, "\n");
@@ -94,7 +120,7 @@ int main()
         perror("Failed to open file");
         return EXIT_FAILURE;
     }
-    readString(fptr);
+    readAll(fptr);
     fclose(fptr);
 
     return 0;
