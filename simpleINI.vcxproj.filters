@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="simpleINI.cpp">
+    <ClCompile Include="simpleINI.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
