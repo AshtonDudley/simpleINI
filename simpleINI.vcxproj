@@ -128,6 +128,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="simpleINI.c" />
+    <ClCompile Include="unit_test.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simpleINI.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

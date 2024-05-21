@@ -18,5 +18,13 @@
     <ClCompile Include="simpleINI.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="unit_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="simpleINI.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
