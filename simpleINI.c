@@ -15,6 +15,9 @@ typedef struct {
     char* value;
 } token_data_t;
 
+
+
+
 // Returns 0 if a vaild string ini entry is found
 int validStringLine(char* line) {
     if (line[0] == '#') {
@@ -31,21 +34,6 @@ int validStringLine(char* line) {
     return 1;
 }
 
-// Returns 0 if a vaild int ini entry is found
-int validStringLine(char* line) {
-    if (line[0] == '#') {
-        return 0;
-    }
-    else if (line[0] == '\n') {
-        return 0;
-    }
-    // Check if input is a vaild string type
-    else if (strchr(line, '\"') == NULL)
-    {
-        return 0;
-    }
-    return 1;
-}
 
 
 char* stripWhitespace(char* str) {
